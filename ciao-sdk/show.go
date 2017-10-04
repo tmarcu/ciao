@@ -9,12 +9,14 @@ import (
 
 
 	"github.com/ciao-project/ciao/openstack/compute"
+	"github.com/ciao-project/ciao/payloads"
 	"github.com/ciao-project/ciao/ciao-controller/types"
 	"github.com/ciao-project/ciao/ciao-controller/api"
 
 	"net/http"
 	"github.com/intel/tfortools"
 	"github.com/spf13/cobra"
+	"gopkg.in/yaml.v2"
 )
 
 type byCreated []compute.ServerDetails
@@ -41,13 +43,46 @@ func dumpInstance(server *compute.ServerDetails) {
 	}
 }
 
+
+func listNodeInstances(node string) error {
+	if node == "" {
+		fatalf("Missing required -cn parameter")
+	}
+
+	var servers types.CiaoServersStats
+	url := buildComputeURL("nodes/%s/servers/detail", node)
+
+	resp, err := sendHTTPRequest("GET", url, nil, nil)
+	if err != nil {
+		fatalf(err.Error())
+	}
+
+	err = unmarshalHTTPResponse(resp, &servers)
+	if err != nil {
+		fatalf(err.Error())
+	}
+
+	for i, server := range servers.Servers {
+		fmt.Printf("Instance #%d\n", i+1)
+		fmt.Printf("\tUUID: %s\n", server.ID)
+		fmt.Printf("\tStatus: %s\n", server.Status)
+		fmt.Printf("\tTenant UUID: %s\n", server.TenantID)
+		fmt.Printf("\tIPv4: %s\n", server.IPv4)
+		fmt.Printf("\tCPUs used: %d\n", server.VCPUUsage)
+		fmt.Printf("\tMemory used: %d MB\n", server.MemUsage)
+		fmt.Printf("\tDisk used: %d MB\n", server.DiskUsage)
+	}
+
+	return nil
+}
+
 func listInstances(cmd *cobra.Command, args []string) error {
 	if InstanceFlags.Tenant == "" {
 		InstanceFlags.Tenant = *tenantID
 	}
 
 	if InstanceFlags.Computenode != "" {
-		//return listNodeInstances(InstanceFlags.computenode)
+		return listNodeInstances(InstanceFlags.Computenode)
 	}
 
 	var servers compute.Servers
@@ -171,6 +206,51 @@ func listWorkloads(cmd *cobra.Command, args []string) error {
 	}
 	return nil
 }
+
+func outputWorkload(w types.Workload) {
+	var opt workloadOptions
+
+	opt.Description = w.Description
+	opt.VMType = string(w.VMType)
+	opt.FWType = w.FWType
+	opt.ImageName = w.ImageName
+	for _, d := range w.Defaults {
+		if d.Type == payloads.VCPUs {
+			opt.Defaults.VCPUs = d.Value
+		} else if d.Type == payloads.MemMB {
+			opt.Defaults.MemMB = d.Value
+		}
+	}
+
+	for _, s := range w.Storage {
+		d := disk{
+			Size:      s.Size,
+			Bootable:  s.Bootable,
+			Ephemeral: s.Ephemeral,
+		}
+		if s.ID != "" {
+			d.ID = &s.ID
+		}
+
+		src := source{
+			Type: s.SourceType,
+			ID:   s.SourceID,
+		}
+
+		d.Source = src
+
+		opt.Disks = append(opt.Disks, d)
+	}
+
+	b, err := yaml.Marshal(opt)
+	if err != nil {
+		fatalf(err.Error())
+	}
+
+	fmt.Println(string(b))
+	fmt.Println(w.Config)
+}
+
 
 func showWorkload(cmd *cobra.Command, args[]string) error {
 	var wl types.Workload
