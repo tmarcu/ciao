@@ -15,13 +15,16 @@
 package main
 
 import (
-	"github.com/ciao-project/ciao/ciao-sdk"
+	"github.com/ciao-project/ciao/client"
 	"github.com/ciao-project/ciao/ciao/cmd"
 )
 
+var c client.Client
+
+
 func main() {
-	sdk.GetCiaoEnvVariables()
-	sdk.CheckCompulsoryOptions()
-	sdk.PrepareForCommand()
+	client.GetCiaoEnvVariables()
+	client.CheckCompulsoryOptions()
+	client.PrepareForCommand()
 	cmd.Execute()
 }

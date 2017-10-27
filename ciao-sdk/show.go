@@ -1,27 +1,22 @@
 package sdk
 
+import (
+	"github.com/ciao-project/ciao/client"
+
+	"github.com/pkg/errors"
+
+)
+var c client.Client
+
 func Show(object string, args []string) {
 	var ret error
 
 	switch object {
-	case "instance":
-		if len(args) == 0 {
-			ret = listInstances()
-		} else {
-			ret = showInstance(args)
-		}
-	case "workload":
-		if len(args) == 0 {
-			ret = listWorkloads()
-		} else {
-			ret = showWorkload(args)
-		}
-	case "event":
-		listEvent(args)
+
 	case "image":
-		listImages()
+		c.ListImages()
 	}
 	if ret != nil {
-		errorf("ERROR:%s\n", ret)
+		errors.Wrapf(ret, "Error running %s\n", object)
 	}
 }
