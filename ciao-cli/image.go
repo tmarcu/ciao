@@ -20,7 +20,6 @@ import (
 	"flag"
 	"fmt"
 	"os"
-	"text/template"
 
 	"github.com/ciao-project/ciao/ciao-controller/types"
 	"github.com/intel/tfortools"
@@ -189,31 +188,9 @@ func (cmd *imageListCommand) parseArgs(args []string) []string {
 }
 
 func (cmd *imageListCommand) run(args []string) error {
-	var t *template.Template
-	var err error
-	if cmd.template != "" {
-		t, err = tfortools.CreateTemplate("image-list", cmd.template, nil)
-		if err != nil {
-			fatalf(err.Error())
-		}
-	}
-
-	images, err := c.ListImages()
+	err := c.ListImages()
 	if err != nil {
 		return errors.Wrap(err, "Error listing images")
-	}
-
-	if t != nil {
-		if err = t.Execute(os.Stdout, &images); err != nil {
-			fatalf(err.Error())
-		}
-		return nil
-	}
-
-	for k, i := range images {
-		fmt.Printf("Image #%d\n", k+1)
-		dumpImage(&i)
-		fmt.Printf("\n")
 	}
 
 	return err
