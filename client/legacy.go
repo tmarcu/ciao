@@ -17,18 +17,13 @@
 package client
 
 import (
-	"fmt"
-	"os"
 	"time"
 
 	"github.com/ciao-project/ciao/ciao-controller/types"
-	"github.com/intel/tfortools"
-	"github.com/pkg/errors"
-
 )
 
 // ListEvents retrieves the events for either all or the desired tenant
-func (client *Client) GetEvents(tenantID string) (types.CiaoEvents, error) {
+func (client *Client) ListEvents(tenantID string) (types.CiaoEvents, error) {
 	var events types.CiaoEvents
 	var url string
 
@@ -41,39 +36,6 @@ func (client *Client) GetEvents(tenantID string) (types.CiaoEvents, error) {
 	err := client.getResource(url, "", nil, &events)
 
 	return events, err
-}
-
-func (client *Client) ListEvents(args []string) error {
-	tenant := *tenantID
-
-	if len(args) != 0 {
-		tenant = args[0]
-	}
-
-	if CommandFlags.All == false && tenant == "" {
-		errorf("Missing required tenant-id parameter")
-		return nil
-	}
-
-	if CommandFlags.All {
-		*tenantID = ""
-	}
-
-	events, err := client.GetEvents(*tenantID)
-	if err != nil {
-		return errors.Wrap(err, "Error listing events")
-	}
-
-	if Template != "" {
-		return tfortools.OutputToTemplate(os.Stdout, "event-list", Template,
-			&events.Events, nil)
-	}
-
-	fmt.Printf("%d Ciao event(s):\n", len(events.Events))
-	for i, event := range events.Events {
-		fmt.Printf("\t[%d] %v: %s:%s (Tenant %s)\n", i+1, event.Timestamp, event.EventType, event.Message, event.TenantID)
-	}
-	return nil
 }
 
 // DeleteEvents deletes all events
