@@ -6,7 +6,7 @@ import (
 	"github.com/pkg/errors"
 
 )
-var c client.Client
+var C client.Client
 
 func Show(object string, args []string) {
 	var ret error
@@ -14,7 +14,7 @@ func Show(object string, args []string) {
 	switch object {
 
 	case "image":
-		c.ListImages()
+		C.ListImages()
 	}
 	if ret != nil {
 		errors.Wrapf(ret, "Error running %s\n", object)

@@ -137,7 +137,7 @@ func init() {
 
 	RootCmd.AddCommand(showCmd)
 
-	showCmd.PersistentFlags().StringVarP(&client.Template, "template", "t", "", "Template used to format output")
+	showCmd.PersistentFlags().StringVarP(&sdk.C.Template, "template", "t", "", "Template used to format output")
 
 	eventShowCmd.Flags().BoolVar(&client.CommandFlags.All, "all", false, "List events for all tenants in a cluster")
 
@@ -146,6 +146,6 @@ func init() {
 	instanceShowCmd.Flags().IntVar(&client.CommandFlags.Limit, "limit", 1, "Limit listing to <limit> results")
 	instanceShowCmd.Flags().StringVar(&client.CommandFlags.Marker, "marker", "", "Show instance list starting from the next instance after marker")
 	instanceShowCmd.Flags().IntVar(&client.CommandFlags.Offset, "offset", 0, "Show instance list starting from instance <offset>")
-	instanceShowCmd.Flags().StringVar(&client.CommandFlags.TenantID, "tenant", "", "Specify to list instances from a tenant other than -tenant-id")
+	instanceShowCmd.Flags().StringVar(&sdk.C.TenantID, "tenant", "", "Specify to list instances from a tenant other than -tenant-id")
 	instanceShowCmd.Flags().StringVar(&client.CommandFlags.Workload, "workload", "", "Workload UUID")
 }

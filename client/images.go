@@ -109,10 +109,10 @@ func (client *Client) ListImages() error {
 	var url string
 	var err error
 
-	if Template != "" {
-			t, err = tfortools.CreateTemplate("image-list", Template, nil)
+	if client.Template != "" {
+			t, err = tfortools.CreateTemplate("image-list", client.Template, nil)
 			if err != nil {
-				fatalf(err.Error())
+				return errors.Wrap(err, "Error creating template")
 			}
 	}
 
@@ -123,13 +123,13 @@ func (client *Client) ListImages() error {
 	}
 
 	err = client.getResource(url, api.ImagesV1, nil, &images)
-	if err != nil {
+	if err != nil {	
 		return errors.Wrap(err, "Error getting image resource")
 	}
 
 	if t != nil {
 		if err = t.Execute(os.Stdout, &images); err != nil {
-			fatalf(err.Error())
+			return errors.Wrap(err, "Error getting image resource")
 		}
 		return nil
 	}

@@ -36,6 +36,7 @@ import (
 
 // Client represents a client for accessing ciao controller
 type Client struct {
+	Template       string
 	ControllerURL  string
 	TenantID       string
 	CACertFile     string
@@ -46,6 +47,8 @@ type Client struct {
 
 	Tenants []string
 }
+
+var CommandFlags = new(CommandOpts)
 
 type queryValue struct {
 	name, value string
