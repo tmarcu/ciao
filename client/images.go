@@ -25,9 +25,11 @@ import (
 
 	"github.com/ciao-project/ciao/ciao-controller/api"
 	"github.com/ciao-project/ciao/ciao-controller/types"
+
 	"github.com/intel/tfortools"
 	"github.com/pkg/errors"
 )
+
 func dumpImage(i *types.Image) {
 	fmt.Printf("\tName\t\t[%s]\n", i.Name)
 	fmt.Printf("\tSize\t\t[%d bytes]\n", i.Size)
@@ -38,50 +40,19 @@ func dumpImage(i *types.Image) {
 }
 
 // GetImage retrieves the details for an image
-func (client *Client) GetImages() ([]types.Image, error) {
-	var i []types.Image
+func (client *Client) GetImage(imageID string) (types.Image, error) {
+	var i types.Image
 
 	var url string
 	if client.IsPrivileged() && client.TenantID == "admin" {
-		url = client.buildCiaoURL("images")
+		url = client.buildCiaoURL("images/%s", imageID)
 	} else {
-		url = client.buildCiaoURL("%s/images", tenantID)
+		url = client.buildCiaoURL("%s/images/%s", client.TenantID, imageID)
 	}
 
 	err := client.getResource(url, api.ImagesV1, nil, &i)
 
 	return i, err
-}
-
-// ListImages retrieves the set of available images
-func (client *Client) ListImages() error {
-	var t *template.Template
-	var err error
-	if Template != "" {
-		t, err = tfortools.CreateTemplate("image-list", Template, nil)
-		if err != nil {
-			fatalf(err.Error())
-		}
-	}
-
-	images, err := client.GetImages()
-	if err != nil {
-		return errors.Wrap(err, "Error listing images")
-	}
-
-	if t != nil {
-		if err = t.Execute(os.Stdout, &images); err != nil {
-			fatalf(err.Error())
-		}
-		return nil
-	}
-
-	for k, i := range images {
-		fmt.Printf("Image #%d\n", k+1)
-		dumpImage(&i)
-		fmt.Printf("\n")
-	}
-	return nil
 }
 
 func (client *Client) uploadTenantImage(tenant, image string, data io.Reader) error {
@@ -129,6 +100,47 @@ func (client *Client) CreateImage(name string, visibility types.Visibility, ID s
 	}
 
 	return image.ID, nil
+}
+
+// ListImages retrieves the set of available images
+func (client *Client) ListImages() error {
+	var images []types.Image
+	var t *template.Template
+	var url string
+	var err error
+
+	if Template != "" {
+			t, err = tfortools.CreateTemplate("image-list", Template, nil)
+			if err != nil {
+				fatalf(err.Error())
+			}
+	}
+
+	if client.IsPrivileged() && client.TenantID == "admin" {
+		url = client.buildCiaoURL("images")
+	} else {
+		url = client.buildCiaoURL("%s/images", client.TenantID)
+	}
+
+	err = client.getResource(url, api.ImagesV1, nil, &images)
+	if err != nil {
+		return errors.Wrap(err, "Error getting image resource")
+	}
+
+	if t != nil {
+		if err = t.Execute(os.Stdout, &images); err != nil {
+			fatalf(err.Error())
+		}
+		return nil
+	}
+
+	for k, i := range images {
+		fmt.Printf("Image #%d\n", k+1)
+		dumpImage(&i)
+		fmt.Printf("\n")
+	}
+
+	return nil
 }
 
 // DeleteImage deletes the given image

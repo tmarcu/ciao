@@ -198,22 +198,9 @@ func (cmd *imageListCommand) run(args []string) error {
 		}
 	}
 
-	images, err := c.ListImages()
+	err = c.ListImages()
 	if err != nil {
 		return errors.Wrap(err, "Error listing images")
-	}
-
-	if t != nil {
-		if err = t.Execute(os.Stdout, &images); err != nil {
-			fatalf(err.Error())
-		}
-		return nil
-	}
-
-	for k, i := range images {
-		fmt.Printf("Image #%d\n", k+1)
-		dumpImage(&i)
-		fmt.Printf("\n")
 	}
 
 	return err
