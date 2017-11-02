@@ -48,8 +48,6 @@ type Client struct {
 	Tenants []string
 }
 
-var CommandFlags = new(CommandOpts)
-
 type queryValue struct {
 	name, value string
 }

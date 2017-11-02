@@ -4,19 +4,23 @@ import (
 	"github.com/ciao-project/ciao/client"
 
 	"github.com/pkg/errors"
-
 )
-var C client.Client
 
-func Show(object string, args []string) {
+func Show(c *client.Client, data CommandOpts) {
 	var ret error
 
-	switch object {
-
+	switch data.CommandName {
+	case "instance":
+		if len(data.Args) == 0 {
+			ret = ListInstances(c, data)
+		} else {
+			//ret = c.ShowInstance()
+		}
 	case "image":
-		C.ListImages()
+		if len(data.Args) == 0 {}
+		c.ListImages()
 	}
 	if ret != nil {
-		errors.Wrapf(ret, "Error running %s\n", object)
+		errors.Wrapf(ret, "Error running %s\n", data.CommandName)
 	}
 }

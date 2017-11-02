@@ -18,13 +18,80 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/mitchellh/go-homedir"
+	"github.com/ciao-project/ciao/client"
+	"github.com/ciao-project/ciao/ciao-sdk"
 
+	"github.com/mitchellh/go-homedir"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
+	"github.com/golang/glog"
+
 )
 
+var C client.Client
+
+var CommandFlags = new(sdk.CommandOpts)
+
 var cfgFile string
+
+var (
+    tenantID       = new(string)
+    controllerURL  = new(string)
+    ciaoPort       = new(int)
+    caCertFile     = new(string)
+    clientCertFile = new(string)
+)
+
+const (
+	ciaoControllerEnv     = "CIAO_CONTROLLER"
+	ciaoCACertFileEnv     = "CIAO_CA_CERT_FILE"
+	ciaoClientCertFileEnv = "CIAO_CLIENT_CERT_FILE"
+)
+
+func infof(format string, args ...interface{}) {
+	if glog.V(1) {
+		glog.InfoDepth(1, fmt.Sprintf("ciao-cli INFO: "+format, args...))
+	}
+}
+
+func errorf(format string, args ...interface{}) {
+	glog.ErrorDepth(1, fmt.Sprintf("ciao-cli ERROR: "+format, args...))
+}
+
+func fatalf(format string, args ...interface{}) {
+	glog.FatalDepth(1, fmt.Sprintf("ciao-cli FATAL: "+format, args...))
+}
+
+func getCiaoEnvVariables() {
+	controller := os.Getenv(ciaoControllerEnv)
+	ca := os.Getenv(ciaoCACertFileEnv)
+	clientCert := os.Getenv(ciaoClientCertFileEnv)
+
+	infof("Ciao environment variables:\n")
+	infof("\t%s:%s\n", ciaoControllerEnv, controller)
+	infof("\t%s:%s\n", ciaoCACertFileEnv, ca)
+	infof("\t%s:%s\n", ciaoClientCertFileEnv, clientCert)
+
+	C.ControllerURL = controller
+	C.CACertFile = ca
+	C.ClientCertFile = clientCert
+
+	if *controllerURL != "" {
+		C.ControllerURL = *controllerURL
+	}
+
+	if *caCertFile != "" {
+		C.CACertFile = *caCertFile
+	}
+
+	if *clientCertFile != "" {
+		C.ClientCertFile = *clientCertFile
+	}
+
+	if *tenantID != "" {
+		C.TenantID = *tenantID
+	}
+}
 
 // RootCmd represents the base command when called without any subcommands
 var RootCmd = &cobra.Command{
@@ -50,6 +117,8 @@ func Execute() {
 
 func init() {
 	cobra.OnInitialize(initConfig)
+	getCiaoEnvVariables()
+	C.Init()
 }
 
 // initConfig reads in config file and ENV variables if set.
