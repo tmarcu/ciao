@@ -24,8 +24,6 @@ import (
 	"github.com/mitchellh/go-homedir"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-	"github.com/golang/glog"
-
 )
 
 var C client.Client
@@ -48,29 +46,15 @@ const (
 	ciaoClientCertFileEnv = "CIAO_CLIENT_CERT_FILE"
 )
 
-func infof(format string, args ...interface{}) {
-	if glog.V(1) {
-		glog.InfoDepth(1, fmt.Sprintf("ciao-cli INFO: "+format, args...))
-	}
-}
-
-func errorf(format string, args ...interface{}) {
-	glog.ErrorDepth(1, fmt.Sprintf("ciao-cli ERROR: "+format, args...))
-}
-
-func fatalf(format string, args ...interface{}) {
-	glog.FatalDepth(1, fmt.Sprintf("ciao-cli FATAL: "+format, args...))
-}
-
 func getCiaoEnvVariables() {
 	controller := os.Getenv(ciaoControllerEnv)
 	ca := os.Getenv(ciaoCACertFileEnv)
 	clientCert := os.Getenv(ciaoClientCertFileEnv)
 
-	infof("Ciao environment variables:\n")
-	infof("\t%s:%s\n", ciaoControllerEnv, controller)
-	infof("\t%s:%s\n", ciaoCACertFileEnv, ca)
-	infof("\t%s:%s\n", ciaoClientCertFileEnv, clientCert)
+	client.Infof("Ciao environment variables:\n")
+	client.Infof("\t%s:%s\n", ciaoControllerEnv, controller)
+	client.Infof("\t%s:%s\n", ciaoCACertFileEnv, ca)
+	client.Infof("\t%s:%s\n", ciaoClientCertFileEnv, clientCert)
 
 	C.ControllerURL = controller
 	C.CACertFile = ca

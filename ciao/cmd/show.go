@@ -150,6 +150,7 @@ func init() {
 	showCmd.PersistentFlags().StringVarP(&C.Template, "template", "t", "", "Template used to format output")
 
 	eventShowCmd.Flags().BoolVar(&CommandFlags.All, "all", false, "List events for all tenants in a cluster")
+	eventShowCmd.Flags().StringVar(&CommandFlags.Tenant, "tenant", "", "Tenant to list events from")
 
 	instanceShowCmd.Flags().StringVar(&CommandFlags.Computenode, "computenode", "", "Compute node to list instances from (defalut to all  nodes when empty)")
 	instanceShowCmd.Flags().BoolVar(&CommandFlags.Detail, "verbose", false, "Print detailed information about each instance")

@@ -10,6 +10,8 @@ func Show(c *client.Client, data CommandOpts) {
 	var ret error
 
 	switch data.CommandName {
+	case "event":
+		ret = ListEvents(c, data)
 	case "instance":
 		if len(data.Args) == 0 {
 			ret = ListInstances(c, data)
@@ -18,15 +20,15 @@ func Show(c *client.Client, data CommandOpts) {
 		}
 	case "image":
 		if len(data.Args) == 0 {
-			c.ListImages()
+			ret = c.ListImages()
 		} else {
-			c.ShowImage(data.Args[0])
+			ret = c.ShowImage(data.Args[0])
 		}
 	case "workload":
 		if len(data.Args) == 0 {
-			ListWorkload(c, data)
+			ret = ListWorkload(c, data)
 		} else {
-			ShowWorkload(c, data)
+			ret = ShowWorkload(c, data)
 		}
 	}
 	if ret != nil {
