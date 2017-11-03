@@ -17,8 +17,11 @@ func Show(c *client.Client, data CommandOpts) {
 			ret = ShowInstance(c, data)
 		}
 	case "image":
-		if len(data.Args) == 0 {}
-		c.ListImages()
+		if len(data.Args) == 0 {
+			c.ListImages()
+		} else {
+			c.ShowImage(data.Args[0])
+		}
 	}
 	if ret != nil {
 		errors.Wrapf(ret, "Error running %s\n", data.CommandName)

@@ -143,6 +143,25 @@ func (client *Client) ListImages() error {
 	return nil
 }
 
+func (client *Client) ShowImage(imageID string) error {
+	if imageID == "" {
+		return errors.New("Missing required image UUID parameter")
+	}
+
+	i, err := client.GetImage(imageID)
+	if err != nil {
+		return errors.Wrap(err, "Error getting image")
+	}
+
+	if client.Template != "" {
+		return tfortools.OutputToTemplate(os.Stdout, "image-show", client.Template, i, nil)
+	}
+
+	dumpImage(&i)
+
+	return nil
+}
+
 // DeleteImage deletes the given image
 func (client *Client) DeleteImage(imageID string) error {
 	var url string
