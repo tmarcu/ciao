@@ -25,6 +25,8 @@ func Show(c *client.Client, data CommandOpts) {
 	case "workload":
 		if len(data.Args) == 0 {
 			ListWorkload(c, data)
+		} else {
+			ShowWorkload(c, data)
 		}
 	}
 	if ret != nil {
