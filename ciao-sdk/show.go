@@ -22,6 +22,10 @@ func Show(c *client.Client, data CommandOpts) {
 		} else {
 			c.ShowImage(data.Args[0])
 		}
+	case "workload":
+		if len(data.Args) == 0 {
+			ListWorkload(c, data)
+		}
 	}
 	if ret != nil {
 		errors.Wrapf(ret, "Error running %s\n", data.CommandName)
