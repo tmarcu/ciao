@@ -42,6 +42,26 @@ func dumpInstance(server *api.ServerDetails) {
 	}
 }
 
+func ShowInstance(c *client.Client, flags CommandOpts) error {
+	if len(flags.Args) == 0 {
+		fatalf("Missing required -cn parameter")
+	}
+	instance := flags.Args[0]
+
+	server, err := c.GetInstance(instance)
+	if err != nil {
+		return errors.Wrap(err, "Error getting instance")
+	}
+
+	if c.Template != "" {
+		return tfortools.OutputToTemplate(os.Stdout, "instance-show", c.Template,
+			&server.Server, nil)
+	}
+
+	dumpInstance(&server.Server)
+	return nil
+}
+
 func listNodeInstances(c *client.Client, node string) error {
 	if node == "" {
 		fatalf("Missing required -cn parameter")

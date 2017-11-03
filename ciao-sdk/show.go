@@ -14,7 +14,7 @@ func Show(c *client.Client, data CommandOpts) {
 		if len(data.Args) == 0 {
 			ret = ListInstances(c, data)
 		} else {
-			//ret = c.ShowInstance()
+			ret = ShowInstance(c, data)
 		}
 	case "image":
 		if len(data.Args) == 0 {}
