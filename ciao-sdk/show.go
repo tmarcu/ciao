@@ -12,6 +12,8 @@ func Show(c *client.Client, data CommandOpts) {
 	switch data.CommandName {
 	case "event":
 		ret = ListEvents(c, data)
+	case "externalip":
+		ret = ListExternalIP(c, data)
 	case "instance":
 		if len(data.Args) == 0 {
 			ret = ListInstances(c, data)
