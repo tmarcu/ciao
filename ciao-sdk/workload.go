@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/ciao-project/ciao/ciao-controller/types"
 	"github.com/ciao-project/ciao/client"
 	"github.com/ciao-project/ciao/payloads"
-	"github.com/ciao-project/ciao/ciao-controller/types"
 
 	"github.com/intel/tfortools"
 	"github.com/pkg/errors"
@@ -102,7 +102,7 @@ func ListWorkload(c *client.Client, flags CommandOpts) error {
 func ShowWorkload(c *client.Client, flags CommandOpts) error {
 	var wl types.Workload
 
-	if len(flags.Args)  == 0 {
+	if len(flags.Args) == 0 {
 		fatalf("Missing required workload UUID parameter")
 	}
 	workload := flags.Args[0]

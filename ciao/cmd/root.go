@@ -18,8 +18,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/ciao-project/ciao/client"
 	"github.com/ciao-project/ciao/ciao-sdk"
+	"github.com/ciao-project/ciao/client"
 
 	"github.com/mitchellh/go-homedir"
 	"github.com/spf13/cobra"
@@ -33,11 +33,11 @@ var CommandFlags = new(sdk.CommandOpts)
 var cfgFile string
 
 var (
-    tenantID       = new(string)
-    controllerURL  = new(string)
-    ciaoPort       = new(int)
-    caCertFile     = new(string)
-    clientCertFile = new(string)
+	tenantID       = new(string)
+	controllerURL  = new(string)
+	ciaoPort       = new(int)
+	caCertFile     = new(string)
+	clientCertFile = new(string)
 )
 
 const (

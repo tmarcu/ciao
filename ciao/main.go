@@ -18,8 +18,6 @@ import (
 	"github.com/ciao-project/ciao/ciao/cmd"
 )
 
-
-
 func main() {
 	cmd.Execute()
 }

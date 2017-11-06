@@ -31,9 +31,9 @@ var eventShowCmd = &cobra.Command{
 	Use:  "event [TENANT ID]",
 	Long: `When called with no args, it will print all events.`,
 	Run: func(cmd *cobra.Command, args []string) {
-			CommandFlags.CommandName = strings.Fields(cmd.Use)[0]
-			CommandFlags.Args = args
-			sdk.Show(&C, *CommandFlags)
+		CommandFlags.CommandName = strings.Fields(cmd.Use)[0]
+		CommandFlags.Args = args
+		sdk.Show(&C, *CommandFlags)
 	},
 }
 
@@ -41,9 +41,9 @@ var externalipShowCmd = &cobra.Command{
 	Use:  "externalip",
 	Long: `When called with no args, it will print all externalips.`,
 	Run: func(cmd *cobra.Command, args []string) {
-			CommandFlags.CommandName = strings.Fields(cmd.Use)[0]
-			CommandFlags.Args = args
-			sdk.Show(&C, *CommandFlags)
+		CommandFlags.CommandName = strings.Fields(cmd.Use)[0]
+		CommandFlags.Args = args
+		sdk.Show(&C, *CommandFlags)
 	},
 }
 
@@ -51,9 +51,9 @@ var imageShowCmd = &cobra.Command{
 	Use:  "image <UUID>",
 	Long: `When called with no args, it will print all images.`,
 	Run: func(cmd *cobra.Command, args []string) {
-			CommandFlags.CommandName = strings.Fields(cmd.Use)[0]
-			CommandFlags.Args = args
-			sdk.Show(&C, *CommandFlags)
+		CommandFlags.CommandName = strings.Fields(cmd.Use)[0]
+		CommandFlags.Args = args
+		sdk.Show(&C, *CommandFlags)
 	},
 }
 
@@ -61,20 +61,20 @@ var instanceShowCmd = &cobra.Command{
 	Use:  "instance <UUID>",
 	Long: `When called with no args, it will print all instances.`,
 	Run: func(cmd *cobra.Command, args []string) {
-			CommandFlags.CommandName = strings.Fields(cmd.Use)[0]
-			CommandFlags.Args = args
-			sdk.Show(&C, *CommandFlags)
+		CommandFlags.CommandName = strings.Fields(cmd.Use)[0]
+		CommandFlags.Args = args
+		sdk.Show(&C, *CommandFlags)
 	},
 }
 
 var nodeShowCmd = &cobra.Command{
 	Use:  "node [NODE-ID]",
 	Long: `Show information about a node.`,
-	Args:  cobra.MinimumNArgs(1),
+	Args: cobra.MinimumNArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
-			CommandFlags.CommandName = strings.Fields(cmd.Use)[0]
-			CommandFlags.Args = args
-			sdk.Show(&C, *CommandFlags)
+		CommandFlags.CommandName = strings.Fields(cmd.Use)[0]
+		CommandFlags.Args = args
+		sdk.Show(&C, *CommandFlags)
 	},
 }
 
@@ -82,9 +82,9 @@ var poolShowCmd = &cobra.Command{
 	Use:  "pool [NAME]",
 	Long: `Show ciao external IP pool details.`,
 	Run: func(cmd *cobra.Command, args []string) {
-			CommandFlags.CommandName = strings.Fields(cmd.Use)[0]
-			CommandFlags.Args = args
-			sdk.Show(&C, *CommandFlags)
+		CommandFlags.CommandName = strings.Fields(cmd.Use)[0]
+		CommandFlags.Args = args
+		sdk.Show(&C, *CommandFlags)
 	},
 }
 
@@ -92,9 +92,9 @@ var quotasShowCmd = &cobra.Command{
 	Use:  "quotas [TENANT STRING]",
 	Long: `When called with no args, it will print all quotas for current tenant.`,
 	Run: func(cmd *cobra.Command, args []string) {
-			CommandFlags.CommandName = strings.Fields(cmd.Use)[0]
-			CommandFlags.Args = args
-			sdk.Show(&C, *CommandFlags)
+		CommandFlags.CommandName = strings.Fields(cmd.Use)[0]
+		CommandFlags.Args = args
+		sdk.Show(&C, *CommandFlags)
 	},
 }
 
@@ -102,9 +102,9 @@ var tenantShowCmd = &cobra.Command{
 	Use:  "tenant [NAME]",
 	Long: `When called with no args, it will print all tenants.`,
 	Run: func(cmd *cobra.Command, args []string) {
-			CommandFlags.CommandName = strings.Fields(cmd.Use)[0]
-			CommandFlags.Args = args
-			sdk.Show(&C, *CommandFlags)
+		CommandFlags.CommandName = strings.Fields(cmd.Use)[0]
+		CommandFlags.Args = args
+		sdk.Show(&C, *CommandFlags)
 	},
 }
 
@@ -112,9 +112,9 @@ var traceShowCmd = &cobra.Command{
 	Use:  "trace [LABEL]",
 	Long: `When called with no args, it will print all traces.`,
 	Run: func(cmd *cobra.Command, args []string) {
-			CommandFlags.CommandName = strings.Fields(cmd.Use)[0]
-			CommandFlags.Args = args
-			sdk.Show(&C, *CommandFlags)
+		CommandFlags.CommandName = strings.Fields(cmd.Use)[0]
+		CommandFlags.Args = args
+		sdk.Show(&C, *CommandFlags)
 	},
 }
 
@@ -122,9 +122,9 @@ var volumeShowCmd = &cobra.Command{
 	Use:  "volume [UUID]",
 	Long: `When called with no args, it will print all volumes.`,
 	Run: func(cmd *cobra.Command, args []string) {
-			CommandFlags.CommandName = strings.Fields(cmd.Use)[0]
-			CommandFlags.Args = args
-			sdk.Show(&C, *CommandFlags)
+		CommandFlags.CommandName = strings.Fields(cmd.Use)[0]
+		CommandFlags.Args = args
+		sdk.Show(&C, *CommandFlags)
 	},
 }
 
@@ -132,9 +132,9 @@ var workloadShowCmd = &cobra.Command{
 	Use:  "workload [UUID]",
 	Long: `When called with no args, it will print all workloads.`,
 	Run: func(cmd *cobra.Command, args []string) {
-			CommandFlags.CommandName = strings.Fields(cmd.Use)[0]
-			CommandFlags.Args = args
-			sdk.Show(&C, *CommandFlags)
+		CommandFlags.CommandName = strings.Fields(cmd.Use)[0]
+		CommandFlags.Args = args
+		sdk.Show(&C, *CommandFlags)
 	},
 }
 

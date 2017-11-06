@@ -6,18 +6,16 @@ import (
 	"sort"
 	"text/tabwriter"
 
-	"github.com/ciao-project/ciao/client"
 	"github.com/ciao-project/ciao/ciao-controller/api"
+	"github.com/ciao-project/ciao/client"
+	"github.com/golang/glog"
 	"github.com/intel/tfortools"
 	"github.com/pkg/errors"
-	"github.com/golang/glog"
-
 )
 
 func fatalf(format string, args ...interface{}) {
 	glog.FatalDepth(1, fmt.Sprintf("ciao-cli FATAL: "+format, args...))
 }
-
 
 type byCreated []api.ServerDetails
 
