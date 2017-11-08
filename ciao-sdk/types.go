@@ -43,7 +43,6 @@ type workloadOptions struct {
 }
 
 type CommandOpts struct {
-	CommandName string
 	Args        []string
 	All         bool
 	TenantID    string

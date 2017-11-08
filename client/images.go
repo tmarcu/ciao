@@ -20,24 +20,12 @@ import (
 	"fmt"
 	"io"
 	"net/http"
-	"os"
-	"text/template"
 
 	"github.com/ciao-project/ciao/ciao-controller/api"
 	"github.com/ciao-project/ciao/ciao-controller/types"
 
-	"github.com/intel/tfortools"
 	"github.com/pkg/errors"
 )
-
-func dumpImage(i *types.Image) {
-	fmt.Printf("\tName\t\t[%s]\n", i.Name)
-	fmt.Printf("\tSize\t\t[%d bytes]\n", i.Size)
-	fmt.Printf("\tID\t\t[%s]\n", i.ID)
-	fmt.Printf("\tState\t\t[%s]\n", i.State)
-	fmt.Printf("\tVisibility\t[%s]\n", i.Visibility)
-	fmt.Printf("\tCreateTime\t[%s]\n", i.CreateTime)
-}
 
 // GetImage retrieves the details for an image
 func (client *Client) GetImage(imageID string) (types.Image, error) {
@@ -103,63 +91,19 @@ func (client *Client) CreateImage(name string, visibility types.Visibility, ID s
 }
 
 // ListImages retrieves the set of available images
-func (client *Client) ListImages() error {
+func (client *Client) ListImages() ([]types.Image, error) {
 	var images []types.Image
-	var t *template.Template
+
 	var url string
-	var err error
-
-	if client.Template != "" {
-			t, err = tfortools.CreateTemplate("image-list", client.Template, nil)
-			if err != nil {
-				return errors.Wrap(err, "Error creating template")
-			}
-	}
-
 	if client.IsPrivileged() && client.TenantID == "admin" {
 		url = client.buildCiaoURL("images")
 	} else {
 		url = client.buildCiaoURL("%s/images", client.TenantID)
 	}
 
-	err = client.getResource(url, api.ImagesV1, nil, &images)
-	if err != nil {	
-		return errors.Wrap(err, "Error getting image resource")
-	}
+	err := client.getResource(url, api.ImagesV1, nil, &images)
 
-	if t != nil {
-		if err = t.Execute(os.Stdout, &images); err != nil {
-			return errors.Wrap(err, "Error getting image resource")
-		}
-		return nil
-	}
-
-	for k, i := range images {
-		fmt.Printf("Image #%d\n", k+1)
-		dumpImage(&i)
-		fmt.Printf("\n")
-	}
-
-	return nil
-}
-
-func (client *Client) ShowImage(imageID string) error {
-	if imageID == "" {
-		return errors.New("Missing required image UUID parameter")
-	}
-
-	i, err := client.GetImage(imageID)
-	if err != nil {
-		return errors.Wrap(err, "Error getting image")
-	}
-
-	if client.Template != "" {
-		return tfortools.OutputToTemplate(os.Stdout, "image-show", client.Template, i, nil)
-	}
-
-	dumpImage(&i)
-
-	return nil
+	return images, err
 }
 
 // DeleteImage deletes the given image

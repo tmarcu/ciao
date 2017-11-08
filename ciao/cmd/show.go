@@ -15,6 +15,7 @@
 package cmd
 
 import (
+	"fmt"
 	"strings"
 
 	"github.com/ciao-project/ciao/ciao-sdk"
@@ -31,9 +32,13 @@ var eventShowCmd = &cobra.Command{
 	Use:  "event [TENANT ID]",
 	Long: `When called with no args, it will print all events.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		CommandFlags.CommandName = strings.Fields(cmd.Use)[0]
+		object := strings.Fields(cmd.Use)[0]
 		CommandFlags.Args = args
-		sdk.Show(&C, *CommandFlags)
+		result, err := sdk.Show(&C, object, *CommandFlags)
+		if err != nil {
+			fmt.Println("FAILED")
+		}
+		fmt.Println(result)
 	},
 }
 
@@ -41,30 +46,39 @@ var externalipShowCmd = &cobra.Command{
 	Use:  "externalip",
 	Long: `When called with no args, it will print all externalips.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		CommandFlags.CommandName = strings.Fields(cmd.Use)[0]
+		object := strings.Fields(cmd.Use)[0]
 		CommandFlags.Args = args
-		sdk.Show(&C, *CommandFlags)
-	},
+		result, err := sdk.Show(&C, object, *CommandFlags)
+		if err != nil {
+			fmt.Println("FAILED")
+		}
+		fmt.Println(result)	},
 }
 
 var imageShowCmd = &cobra.Command{
 	Use:  "image <UUID>",
 	Long: `When called with no args, it will print all images.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		CommandFlags.CommandName = strings.Fields(cmd.Use)[0]
+		object := strings.Fields(cmd.Use)[0]
 		CommandFlags.Args = args
-		sdk.Show(&C, *CommandFlags)
-	},
+		result, err := sdk.Show(&C, object, *CommandFlags)
+		if err != nil {
+			fmt.Println("FAILED")
+		}
+		fmt.Println(result)	},
 }
 
 var instanceShowCmd = &cobra.Command{
 	Use:  "instance <UUID>",
 	Long: `When called with no args, it will print all instances.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		CommandFlags.CommandName = strings.Fields(cmd.Use)[0]
+		object := strings.Fields(cmd.Use)[0]
 		CommandFlags.Args = args
-		sdk.Show(&C, *CommandFlags)
-	},
+		result, err := sdk.Show(&C, object, *CommandFlags)
+		if err != nil {
+			fmt.Println("FAILED")
+		}
+		fmt.Println(result)	},
 }
 
 var nodeShowCmd = &cobra.Command{
@@ -72,9 +86,13 @@ var nodeShowCmd = &cobra.Command{
 	Long: `Show information about a node.`,
 	Args: cobra.MinimumNArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
-		CommandFlags.CommandName = strings.Fields(cmd.Use)[0]
+		object := strings.Fields(cmd.Use)[0]
 		CommandFlags.Args = args
-		sdk.Show(&C, *CommandFlags)
+		result, err := sdk.Show(&C, object, *CommandFlags)
+		if err != nil {
+			fmt.Println("FAILED")
+		}
+		fmt.Println(result)
 	},
 }
 
@@ -82,60 +100,78 @@ var poolShowCmd = &cobra.Command{
 	Use:  "pool [NAME]",
 	Long: `Show ciao external IP pool details.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		CommandFlags.CommandName = strings.Fields(cmd.Use)[0]
+		object := strings.Fields(cmd.Use)[0]
 		CommandFlags.Args = args
-		sdk.Show(&C, *CommandFlags)
-	},
+		result, err := sdk.Show(&C, object, *CommandFlags)
+		if err != nil {
+			fmt.Println("FAILED")
+		}
+		fmt.Println(result)	},
 }
 
 var quotasShowCmd = &cobra.Command{
 	Use:  "quotas [TENANT STRING]",
 	Long: `When called with no args, it will print all quotas for current tenant.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		CommandFlags.CommandName = strings.Fields(cmd.Use)[0]
+		object := strings.Fields(cmd.Use)[0]
 		CommandFlags.Args = args
-		sdk.Show(&C, *CommandFlags)
-	},
+		result, err := sdk.Show(&C, object, *CommandFlags)
+		if err != nil {
+			fmt.Println("FAILED")
+		}
+		fmt.Println(result)	},
 }
 
 var tenantShowCmd = &cobra.Command{
 	Use:  "tenant [NAME]",
 	Long: `When called with no args, it will print all tenants.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		CommandFlags.CommandName = strings.Fields(cmd.Use)[0]
+		object := strings.Fields(cmd.Use)[0]
 		CommandFlags.Args = args
-		sdk.Show(&C, *CommandFlags)
-	},
+		result, err := sdk.Show(&C, object, *CommandFlags)
+		if err != nil {
+			fmt.Println("FAILED")
+		}
+		fmt.Println(result)	},
 }
 
 var traceShowCmd = &cobra.Command{
 	Use:  "trace [LABEL]",
 	Long: `When called with no args, it will print all traces.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		CommandFlags.CommandName = strings.Fields(cmd.Use)[0]
+		object := strings.Fields(cmd.Use)[0]
 		CommandFlags.Args = args
-		sdk.Show(&C, *CommandFlags)
-	},
+		result, err := sdk.Show(&C, object, *CommandFlags)
+		if err != nil {
+			fmt.Println("FAILED")
+		}
+		fmt.Println(result)	},
 }
 
 var volumeShowCmd = &cobra.Command{
 	Use:  "volume [UUID]",
 	Long: `When called with no args, it will print all volumes.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		CommandFlags.CommandName = strings.Fields(cmd.Use)[0]
+		object := strings.Fields(cmd.Use)[0]
 		CommandFlags.Args = args
-		sdk.Show(&C, *CommandFlags)
-	},
+		result, err := sdk.Show(&C, object, *CommandFlags)
+		if err != nil {
+			fmt.Println("FAILED")
+		}
+		fmt.Println(result)	},
 }
 
 var workloadShowCmd = &cobra.Command{
 	Use:  "workload [UUID]",
 	Long: `When called with no args, it will print all workloads.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		CommandFlags.CommandName = strings.Fields(cmd.Use)[0]
+		object := strings.Fields(cmd.Use)[0]
 		CommandFlags.Args = args
-		sdk.Show(&C, *CommandFlags)
-	},
+		result, err := sdk.Show(&C, object, *CommandFlags)
+		if err != nil {
+			fmt.Println("FAILED")
+		}
+		fmt.Println(result)	},
 }
 
 var showcmds = []*cobra.Command{eventShowCmd, externalipShowCmd, imageShowCmd, instanceShowCmd, nodeShowCmd, poolShowCmd, quotasShowCmd, tenantShowCmd, traceShowCmd, volumeShowCmd, workloadShowCmd}
@@ -154,7 +190,7 @@ func init() {
 
 	instanceShowCmd.Flags().StringVar(&CommandFlags.Computenode, "computenode", "", "Compute node to list instances from (defalut to all  nodes when empty)")
 	instanceShowCmd.Flags().BoolVar(&CommandFlags.Detail, "verbose", false, "Print detailed information about each instance")
-	instanceShowCmd.Flags().IntVar(&CommandFlags.Limit, "limit", 1, "Limit listing to <limit> results")
+	instanceShowCmd.Flags().IntVar(&CommandFlags.Limit, "limit", 1, "Limit listing to <limit> result")
 	instanceShowCmd.Flags().StringVar(&CommandFlags.Marker, "marker", "", "Show instance list starting from the next instance after marker")
 	instanceShowCmd.Flags().IntVar(&CommandFlags.Offset, "offset", 0, "Show instance list starting from instance <offset>")
 	instanceShowCmd.Flags().StringVar(&CommandFlags.Tenant, "tenant", "", "Specify to list instances from a tenant other than -tenant-id")

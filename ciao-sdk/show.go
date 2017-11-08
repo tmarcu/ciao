@@ -1,39 +1,67 @@
 package sdk
 
 import (
+	"bytes"
+
 	"github.com/ciao-project/ciao/client"
+	"github.com/ciao-project/ciao/ciao-controller/types"
+
+	"github.com/intel/tfortools"
 
 	"github.com/pkg/errors"
 )
 
-func Show(c *client.Client, data CommandOpts) {
-	var ret error
+/* Intended calling convention by user would be:
+ * instances := sdk.Show(ClientHandle, "instance", nil)
+ * for example, to return a string of all instances using
+ * the default tfortools template {{table .}}. This can
+ * then be printed or parsed as needed. */
+func Show(c *client.Client, objName string, data CommandOpts) (string, error) {
+	var err error
+	var result bytes.Buffer
 
-	switch data.CommandName {
+	switch objName {
 	case "event":
-		ret = ListEvents(c, data)
+		err = ListEvents(c, data)
 	case "externalip":
-		ret = ListExternalIP(c, data)
+		err = ListExternalIP(c, data)
 	case "instance":
 		if len(data.Args) == 0 {
-			ret = ListInstances(c, data)
+			err = ListInstances(c, data)
 		} else {
-			ret = ShowInstance(c, data)
+			err = ShowInstance(c, data)
 		}
 	case "image":
 		if len(data.Args) == 0 {
-			ret = c.ListImages()
+			images, err := GetImageList(c, data)
+			if err == nil {
+				tfortools.OutputToTemplate(&result, "workload-show", "{{table .}}", images, nil)
+			}
 		} else {
-			ret = c.ShowImage(data.Args[0])
+			image, err := GetImage(c, data)
+			images := []types.Image{image}
+			if err == nil {
+				tfortools.OutputToTemplate(&result, "workload-show", "{{table .}}", images, nil)
+			}
 		}
+
 	case "workload":
 		if len(data.Args) == 0 {
-			ret = ListWorkload(c, data)
+			workloads, err := GetWorkloadList(c, data)
+			if err == nil {
+				tfortools.OutputToTemplate(&result, "workload-list", "{{table .}}", workloads, nil)
+			}
 		} else {
-			ret = ShowWorkload(c, data)
+			workload, err := GetWorkload(c, data)
+			if err == nil {
+				wl := []Workload{workload}
+				tfortools.OutputToTemplate(&result, "workload-show", "{{table .}}", wl, nil)
+			}
 		}
 	}
-	if ret != nil {
-		errors.Wrapf(ret, "Error running %s\n", data.CommandName)
+	if err != nil {
+		return "", errors.Wrapf(err, "Error running %s\n", objName)
 	}
+
+	return result.String(), nil
 }
