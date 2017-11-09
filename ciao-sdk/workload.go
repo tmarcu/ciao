@@ -9,8 +9,10 @@ import (
 )
 
 func GetWorkloadList(c *client.Client, flags CommandOpts) ([]Workload, error) {
+	var workloads []Workload
+
 	if c.TenantID == "" {
-		fatalf("Missing required TenantID parameter")
+		return workloads, errors.New("Missing required TenantID parameter")
 	}
 
 	wls, err := c.ListWorkloads()
@@ -18,7 +20,6 @@ func GetWorkloadList(c *client.Client, flags CommandOpts) ([]Workload, error) {
 		return nil, errors.Wrap(err, "Error listing workloads")
 	}
 
-	var workloads []Workload
 	for i, wl := range wls {
 		workloads = append(workloads, Workload{
 			Name: wl.Description,
@@ -42,7 +43,7 @@ func GetWorkload(c *client.Client, flags CommandOpts) (Workload, error) {
 	var wl types.Workload
 
 	if len(flags.Args) == 0 {
-		fatalf("Missing required workload UUID parameter")
+		return Workload{}, errors.New("Missing required workload UUID parameter")
 	}
 	workloadID := flags.Args[0]
 

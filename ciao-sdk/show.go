@@ -27,9 +27,15 @@ func Show(c *client.Client, objName string, data CommandOpts) (string, error) {
 		err = ListExternalIP(c, data)
 	case "instance":
 		if len(data.Args) == 0 {
-			err = ListInstances(c, data)
+			instances, err := ListInstances(c, data)
+			if err == nil {
+				tfortools.OutputToTemplate(&result, "instance-list", "{{table .}}", instances, nil)
+			}
 		} else {
-			err = ShowInstance(c, data)
+			instance, err := ShowInstance(c, data)
+			if err == nil {
+				tfortools.OutputToTemplate(&result, "instance-show", "{{table .}}", instance, nil)
+			}
 		}
 	case "image":
 		if len(data.Args) == 0 {
