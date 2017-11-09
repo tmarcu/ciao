@@ -22,9 +22,15 @@ func Show(c *client.Client, objName string, data CommandOpts) (string, error) {
 
 	switch objName {
 	case "event":
-		err = ListEvents(c, data)
+		events, err := ListEvents(c, data)
+		if err == nil {
+			tfortools.OutputToTemplate(&result, "event-list", "{{table .}}", events, nil)
+		}
 	case "externalip":
-		err = ListExternalIP(c, data)
+		IPs, err := ListExternalIP(c, data)
+		if err == nil {
+			tfortools.OutputToTemplate(&result, "externalip-list", "{{table .}}", IPs, nil)
+		}
 	case "instance":
 		if len(data.Args) == 0 {
 			instances, err := ListInstances(c, data)
