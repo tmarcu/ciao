@@ -36,7 +36,7 @@ var eventShowCmd = &cobra.Command{
 		CommandFlags.Args = args
 		result, err := sdk.Show(&C, object, *CommandFlags)
 		if err == nil {
-			fmt.Println(result)
+			fmt.Println(result.String())
 		}
 	},
 }
@@ -49,7 +49,7 @@ var externalipShowCmd = &cobra.Command{
 		CommandFlags.Args = args
 		result, err := sdk.Show(&C, object, *CommandFlags)
 		if err == nil {
-			fmt.Println(result)
+			fmt.Println(result.String())
 		}
 	},
 }
@@ -62,7 +62,7 @@ var imageShowCmd = &cobra.Command{
 		CommandFlags.Args = args
 		result, err := sdk.Show(&C, object, *CommandFlags)
 		if err == nil {
-			fmt.Println(result)
+			fmt.Println(result.String())
 		}
 	},
 }
@@ -75,7 +75,7 @@ var instanceShowCmd = &cobra.Command{
 		CommandFlags.Args = args
 		result, err := sdk.Show(&C, object, *CommandFlags)
 		if err == nil {
-			fmt.Println(result)
+			fmt.Println(result.String())
 		}
 	},
 }
@@ -88,7 +88,7 @@ var nodeShowCmd = &cobra.Command{
 		CommandFlags.Args = args
 		result, err := sdk.Show(&C, object, *CommandFlags)
 		if err == nil {
-			fmt.Println(result)
+			fmt.Println(result.String())
 		}
 	},
 }
@@ -101,7 +101,7 @@ var poolShowCmd = &cobra.Command{
 		CommandFlags.Args = args
 		result, err := sdk.Show(&C, object, *CommandFlags)
 		if err == nil {
-			fmt.Println(result)
+			fmt.Println(result.String())
 		}
 	},
 }
@@ -114,7 +114,7 @@ var quotasShowCmd = &cobra.Command{
 		CommandFlags.Args = args
 		result, err := sdk.Show(&C, object, *CommandFlags)
 		if err == nil {
-			fmt.Println(result)
+			fmt.Println(result.String())
 		}
 	},
 }
@@ -127,7 +127,7 @@ var tenantShowCmd = &cobra.Command{
 		CommandFlags.Args = args
 		result, err := sdk.Show(&C, object, *CommandFlags)
 		if err == nil {
-			fmt.Println(result)
+			fmt.Println(result.String())
 		}
 	},
 }
@@ -140,7 +140,7 @@ var traceShowCmd = &cobra.Command{
 		CommandFlags.Args = args
 		result, err := sdk.Show(&C, object, *CommandFlags)
 		if err == nil {
-			fmt.Println(result)
+			fmt.Println(result.String())
 		}
 	},
 }
@@ -153,7 +153,7 @@ var volumeShowCmd = &cobra.Command{
 		CommandFlags.Args = args
 		result, err := sdk.Show(&C, object, *CommandFlags)
 		if err == nil {
-			fmt.Println(result)
+			fmt.Println(result.String())
 		}
 	},
 }
@@ -166,7 +166,7 @@ var workloadShowCmd = &cobra.Command{
 		CommandFlags.Args = args
 		result, err := sdk.Show(&C, object, *CommandFlags)
 		if err == nil {
-			fmt.Println(result)
+			fmt.Println(result.String())
 		}
 	},
 }
