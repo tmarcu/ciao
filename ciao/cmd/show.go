@@ -107,7 +107,7 @@ var poolShowCmd = &cobra.Command{
 }
 
 var quotasShowCmd = &cobra.Command{
-	Use:  "quotas [TENANT STRING]",
+	Use:  "quota",
 	Long: `When called with no args, it will print all quotas for current tenant.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		object := strings.Fields(cmd.Use)[0]
