@@ -54,19 +54,19 @@ func listCNCINodes(c *client.Client, flags CommandOpts) (types.CiaoCNCIs, error)
 func ListNodes(c *client.Client, flags CommandOpts) (bytes.Buffer, error) {
 	var result bytes.Buffer
 
-	if flags.ComputeNode != "" {
+	if flags.ComputeNode  {
 		nodes, err := listComputeNodes(c, flags)
 		if err == nil {
 			c.PrettyPrint(&result, "list-computenode", nodes)
 			return result, err
 		}
-	} else if flags.NetworkNode != "" {
+	} else if flags.NetworkNode {
 		nodes, err := listNetworkNodes(c, flags)
 		if err == nil {
 			c.PrettyPrint(&result, "list-networknode", nodes)
 			return result, err
 		}
-	} else if flags.CNCINode != "" {
+	} else if flags.CNCINode {
 		nodes, err := listCNCINodes(c, flags)
 		if err == nil {
 			c.PrettyPrint(&result, "list-cncinode", nodes)

@@ -54,6 +54,8 @@ func Show(c *client.Client, objName string, data CommandOpts) (bytes.Buffer, err
 				c.PrettyPrint(&result, "list-image", images)
 			}
 		}
+	case "node":
+		result, err = ListNodes(c, data)
 	case "workload":
 		if len(data.Args) == 0 {
 			workloads, err := GetWorkloadList(c, data)

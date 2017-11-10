@@ -44,11 +44,12 @@ type workloadOptions struct {
 
 type CommandOpts struct {
 	Args        []string
-	All         bool
 	TenantID    string
-	CNCINode    string
-	ComputeNode string
-	NetworkNode string
+	ComputeName string
+	All         bool
+	CNCINode    bool
+	ComputeNode bool
+	NetworkNode bool
 	Detail      bool
 	Limit       int
 	Marker      string

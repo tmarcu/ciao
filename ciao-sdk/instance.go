@@ -32,11 +32,11 @@ func ListNodeInstances(c *client.Client, flags CommandOpts) ([]types.CiaoServerS
 		flags.Tenant = c.TenantID
 	}
 
-	if flags.ComputeNode == "" {
+	if flags.ComputeName == "" {
 		errors.New("Missing required -cn parameter")
 	}
 
-	server, err := c.ListInstancesByNode(flags.ComputeNode)
+	server, err := c.ListInstancesByNode(flags.ComputeName)
 	if err != nil {
 		return nil, errors.Wrap(err, "Error getting instances for node")
 	}

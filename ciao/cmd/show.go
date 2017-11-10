@@ -197,11 +197,16 @@ func init() {
 	eventShowCmd.Flags().BoolVar(&CommandFlags.All, "all", false, "List events for all tenants in a cluster")
 	eventShowCmd.Flags().StringVar(&CommandFlags.Tenant, "tenant", "", "Tenant to list events from")
 
-	instanceShowCmd.Flags().StringVar(&CommandFlags.ComputeNode, "computenode", "", "Compute node to list instances from (defalut to all  nodes when empty)")
+	instanceShowCmd.Flags().StringVar(&CommandFlags.ComputeName, "computenode", "", "Compute node to list instances from (defalut to all  nodes when empty)")
 	instanceShowCmd.Flags().BoolVar(&CommandFlags.Detail, "verbose", false, "Print detailed information about each instance")
 	instanceShowCmd.Flags().IntVar(&CommandFlags.Limit, "limit", 1, "Limit listing to <limit> result")
 	instanceShowCmd.Flags().StringVar(&CommandFlags.Marker, "marker", "", "Show instance list starting from the next instance after marker")
 	instanceShowCmd.Flags().IntVar(&CommandFlags.Offset, "offset", 0, "Show instance list starting from instance <offset>")
 	instanceShowCmd.Flags().StringVar(&CommandFlags.Tenant, "tenant", "", "Specify to list instances from a tenant other than -tenant-id")
 	instanceShowCmd.Flags().StringVar(&CommandFlags.Workload, "workload", "", "Workload UUID")
+
+	nodeShowCmd.Flags().BoolVar(&CommandFlags.All, "all", false, "List all nodes")
+	nodeShowCmd.Flags().BoolVar(&CommandFlags.CNCINode, "cnci", false, "List all CNCIs")
+	nodeShowCmd.Flags().BoolVar(&CommandFlags.ComputeNode, "compute", false, "List all compute nodes")
+	nodeShowCmd.Flags().BoolVar(&CommandFlags.NetworkNode, "network", false, "List all network nodes")
 }
