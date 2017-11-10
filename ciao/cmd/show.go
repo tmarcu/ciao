@@ -85,9 +85,8 @@ var instanceShowCmd = &cobra.Command{
 }
 
 var nodeShowCmd = &cobra.Command{
-	Use:  "node [NODE-ID]",
-	Long: `Show information about a node.`,
-	Args: cobra.MinimumNArgs(1),
+	Use:  "node",
+	Long: `Show information about nodes.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		object := strings.Fields(cmd.Use)[0]
 		CommandFlags.Args = args
