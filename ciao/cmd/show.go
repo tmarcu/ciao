@@ -52,7 +52,8 @@ var externalipShowCmd = &cobra.Command{
 		if err != nil {
 			fmt.Println("FAILED")
 		}
-		fmt.Println(result)	},
+		fmt.Println(result)
+	},
 }
 
 var imageShowCmd = &cobra.Command{
@@ -65,7 +66,8 @@ var imageShowCmd = &cobra.Command{
 		if err != nil {
 			fmt.Println("FAILED")
 		}
-		fmt.Println(result)	},
+		fmt.Println(result)
+	},
 }
 
 var instanceShowCmd = &cobra.Command{
@@ -78,7 +80,8 @@ var instanceShowCmd = &cobra.Command{
 		if err != nil {
 			fmt.Println("FAILED")
 		}
-		fmt.Println(result)	},
+		fmt.Println(result)
+	},
 }
 
 var nodeShowCmd = &cobra.Command{
@@ -106,7 +109,8 @@ var poolShowCmd = &cobra.Command{
 		if err != nil {
 			fmt.Println("FAILED")
 		}
-		fmt.Println(result)	},
+		fmt.Println(result)
+	},
 }
 
 var quotasShowCmd = &cobra.Command{
@@ -119,7 +123,8 @@ var quotasShowCmd = &cobra.Command{
 		if err != nil {
 			fmt.Println("FAILED")
 		}
-		fmt.Println(result)	},
+		fmt.Println(result)
+	},
 }
 
 var tenantShowCmd = &cobra.Command{
@@ -132,7 +137,8 @@ var tenantShowCmd = &cobra.Command{
 		if err != nil {
 			fmt.Println("FAILED")
 		}
-		fmt.Println(result)	},
+		fmt.Println(result)
+	},
 }
 
 var traceShowCmd = &cobra.Command{
@@ -145,7 +151,8 @@ var traceShowCmd = &cobra.Command{
 		if err != nil {
 			fmt.Println("FAILED")
 		}
-		fmt.Println(result)	},
+		fmt.Println(result)
+	},
 }
 
 var volumeShowCmd = &cobra.Command{
@@ -158,7 +165,8 @@ var volumeShowCmd = &cobra.Command{
 		if err != nil {
 			fmt.Println("FAILED")
 		}
-		fmt.Println(result)	},
+		fmt.Println(result)
+	},
 }
 
 var workloadShowCmd = &cobra.Command{
@@ -171,7 +179,8 @@ var workloadShowCmd = &cobra.Command{
 		if err != nil {
 			fmt.Println("FAILED")
 		}
-		fmt.Println(result)	},
+		fmt.Println(result)
+	},
 }
 
 var showcmds = []*cobra.Command{eventShowCmd, externalipShowCmd, imageShowCmd, instanceShowCmd, nodeShowCmd, poolShowCmd, quotasShowCmd, tenantShowCmd, traceShowCmd, volumeShowCmd, workloadShowCmd}
@@ -188,7 +197,7 @@ func init() {
 	eventShowCmd.Flags().BoolVar(&CommandFlags.All, "all", false, "List events for all tenants in a cluster")
 	eventShowCmd.Flags().StringVar(&CommandFlags.Tenant, "tenant", "", "Tenant to list events from")
 
-	instanceShowCmd.Flags().StringVar(&CommandFlags.Computenode, "computenode", "", "Compute node to list instances from (defalut to all  nodes when empty)")
+	instanceShowCmd.Flags().StringVar(&CommandFlags.ComputeNode, "computenode", "", "Compute node to list instances from (defalut to all  nodes when empty)")
 	instanceShowCmd.Flags().BoolVar(&CommandFlags.Detail, "verbose", false, "Print detailed information about each instance")
 	instanceShowCmd.Flags().IntVar(&CommandFlags.Limit, "limit", 1, "Limit listing to <limit> result")
 	instanceShowCmd.Flags().StringVar(&CommandFlags.Marker, "marker", "", "Show instance list starting from the next instance after marker")

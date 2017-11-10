@@ -54,15 +54,15 @@ func GetWorkload(c *client.Client, flags CommandOpts) (Workload, error) {
 
 	var workload = Workload{
 		Name: wl.Description,
-		ID:	  wl.ID,
+		ID:   wl.ID,
 	}
 	for _, r := range wl.Defaults {
-			if r.Type == payloads.MemMB {
-				workload.Mem = r.Value
-			}
-			if r.Type == payloads.VCPUs {
-				workload.CPUs = r.Value
-			}
+		if r.Type == payloads.MemMB {
+			workload.Mem = r.Value
 		}
+		if r.Type == payloads.VCPUs {
+			workload.CPUs = r.Value
+		}
+	}
 	return workload, nil
 }

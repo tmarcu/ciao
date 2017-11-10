@@ -31,8 +31,9 @@ import (
 
 	"github.com/ciao-project/ciao/ciao-controller/api"
 	"github.com/ciao-project/ciao/ciao-controller/types"
-	"github.com/pkg/errors"
 	"github.com/golang/glog"
+	"github.com/intel/tfortools"
+	"github.com/pkg/errors"
 )
 
 // Client represents a client for accessing ciao controller
@@ -65,6 +66,14 @@ func Errorf(format string, args ...interface{}) {
 
 func Fatalf(format string, args ...interface{}) {
 	glog.FatalDepth(1, fmt.Sprintf("ciao-cli FATAL: "+format, args...))
+}
+
+func (client *Client) PrettyPrint(buff *bytes.Buffer, tname string, obj interface{}) {
+	if client.Template != "" {
+		tfortools.OutputToTemplate(buff, tname, client.Template, obj, nil)
+	} else {
+		tfortools.OutputToTemplate(buff, tname, "{{table .}}", obj, nil)
+	}
 }
 
 func (client *Client) prepareCAcert() error {

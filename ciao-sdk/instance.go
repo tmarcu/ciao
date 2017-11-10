@@ -1,7 +1,6 @@
 package sdk
 
 import (
-
 	"github.com/ciao-project/ciao/ciao-controller/api"
 	"github.com/ciao-project/ciao/ciao-controller/types"
 	"github.com/ciao-project/ciao/client"
@@ -20,12 +19,12 @@ func ShowInstance(c *client.Client, flags CommandOpts) (api.Server, error) {
 	}
 
 	return server, nil
-/*	if c.Template != "" {
-		return tfortools.OutputToTemplate(os.Stdout, "instance-show", c.Template,
-			&server.Server, nil)
-	}
+	/*	if c.Template != "" {
+			return tfortools.OutputToTemplate(os.Stdout, "instance-show", c.Template,
+				&server.Server, nil)
+		}
 
-	return tfortools.OutputToTemplate(os.Stdout, "instance-show", "{{table .}}", &server.Server, nil)*/
+		return tfortools.OutputToTemplate(os.Stdout, "instance-show", "{{table .}}", &server.Server, nil)*/
 }
 
 func ListNodeInstances(c *client.Client, flags CommandOpts) ([]types.CiaoServerStats, error) {
@@ -33,11 +32,11 @@ func ListNodeInstances(c *client.Client, flags CommandOpts) ([]types.CiaoServerS
 		flags.Tenant = c.TenantID
 	}
 
-	if flags.Computenode == "" {
+	if flags.ComputeNode == "" {
 		errors.New("Missing required -cn parameter")
 	}
 
-	server, err := c.ListInstancesByNode(flags.Computenode)
+	server, err := c.ListInstancesByNode(flags.ComputeNode)
 	if err != nil {
 		return nil, errors.Wrap(err, "Error getting instances for node")
 	}

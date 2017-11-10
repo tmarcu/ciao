@@ -5,6 +5,7 @@ import (
 	"github.com/ciao-project/ciao/client"
 	"github.com/pkg/errors"
 )
+
 func GetImage(c *client.Client, flags CommandOpts) (types.Image, error) {
 	imageID := flags.Args[0]
 

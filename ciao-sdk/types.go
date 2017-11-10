@@ -46,7 +46,9 @@ type CommandOpts struct {
 	Args        []string
 	All         bool
 	TenantID    string
-	Computenode string
+	CNCINode    string
+	ComputeNode string
+	NetworkNode string
 	Detail      bool
 	Limit       int
 	Marker      string
