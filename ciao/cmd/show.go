@@ -35,10 +35,9 @@ var eventShowCmd = &cobra.Command{
 		object := strings.Fields(cmd.Use)[0]
 		CommandFlags.Args = args
 		result, err := sdk.Show(&C, object, *CommandFlags)
-		if err != nil {
-			fmt.Println("FAILED")
+		if err == nil {
+			fmt.Println(result)
 		}
-		fmt.Println(result)
 	},
 }
 
@@ -49,10 +48,9 @@ var externalipShowCmd = &cobra.Command{
 		object := strings.Fields(cmd.Use)[0]
 		CommandFlags.Args = args
 		result, err := sdk.Show(&C, object, *CommandFlags)
-		if err != nil {
-			fmt.Println("FAILED")
+		if err == nil {
+			fmt.Println(result)
 		}
-		fmt.Println(result)
 	},
 }
 
@@ -63,10 +61,9 @@ var imageShowCmd = &cobra.Command{
 		object := strings.Fields(cmd.Use)[0]
 		CommandFlags.Args = args
 		result, err := sdk.Show(&C, object, *CommandFlags)
-		if err != nil {
-			fmt.Println("FAILED")
+		if err == nil {
+			fmt.Println(result)
 		}
-		fmt.Println(result)
 	},
 }
 
@@ -77,10 +74,9 @@ var instanceShowCmd = &cobra.Command{
 		object := strings.Fields(cmd.Use)[0]
 		CommandFlags.Args = args
 		result, err := sdk.Show(&C, object, *CommandFlags)
-		if err != nil {
-			fmt.Println("FAILED")
+		if err == nil {
+			fmt.Println(result)
 		}
-		fmt.Println(result)
 	},
 }
 
@@ -91,10 +87,9 @@ var nodeShowCmd = &cobra.Command{
 		object := strings.Fields(cmd.Use)[0]
 		CommandFlags.Args = args
 		result, err := sdk.Show(&C, object, *CommandFlags)
-		if err != nil {
-			fmt.Println("FAILED")
+		if err == nil {
+			fmt.Println(result)
 		}
-		fmt.Println(result)
 	},
 }
 
@@ -105,10 +100,9 @@ var poolShowCmd = &cobra.Command{
 		object := strings.Fields(cmd.Use)[0]
 		CommandFlags.Args = args
 		result, err := sdk.Show(&C, object, *CommandFlags)
-		if err != nil {
-			fmt.Println("FAILED")
+		if err == nil {
+			fmt.Println(result)
 		}
-		fmt.Println(result)
 	},
 }
 
@@ -119,10 +113,9 @@ var quotasShowCmd = &cobra.Command{
 		object := strings.Fields(cmd.Use)[0]
 		CommandFlags.Args = args
 		result, err := sdk.Show(&C, object, *CommandFlags)
-		if err != nil {
-			fmt.Println("FAILED")
+		if err == nil {
+			fmt.Println(result)
 		}
-		fmt.Println(result)
 	},
 }
 
@@ -133,10 +126,9 @@ var tenantShowCmd = &cobra.Command{
 		object := strings.Fields(cmd.Use)[0]
 		CommandFlags.Args = args
 		result, err := sdk.Show(&C, object, *CommandFlags)
-		if err != nil {
-			fmt.Println("FAILED")
+		if err == nil {
+			fmt.Println(result)
 		}
-		fmt.Println(result)
 	},
 }
 
@@ -147,10 +139,9 @@ var traceShowCmd = &cobra.Command{
 		object := strings.Fields(cmd.Use)[0]
 		CommandFlags.Args = args
 		result, err := sdk.Show(&C, object, *CommandFlags)
-		if err != nil {
-			fmt.Println("FAILED")
+		if err == nil {
+			fmt.Println(result)
 		}
-		fmt.Println(result)
 	},
 }
 
@@ -161,10 +152,9 @@ var volumeShowCmd = &cobra.Command{
 		object := strings.Fields(cmd.Use)[0]
 		CommandFlags.Args = args
 		result, err := sdk.Show(&C, object, *CommandFlags)
-		if err != nil {
-			fmt.Println("FAILED")
+		if err == nil {
+			fmt.Println(result)
 		}
-		fmt.Println(result)
 	},
 }
 
@@ -175,10 +165,9 @@ var workloadShowCmd = &cobra.Command{
 		object := strings.Fields(cmd.Use)[0]
 		CommandFlags.Args = args
 		result, err := sdk.Show(&C, object, *CommandFlags)
-		if err != nil {
-			fmt.Println("FAILED")
+		if err == nil {
+			fmt.Println(result)
 		}
-		fmt.Println(result)
 	},
 }
 
