@@ -197,4 +197,6 @@ func init() {
 	nodeShowCmd.Flags().BoolVar(&CommandFlags.CNCINode, "cnci", false, "List all CNCIs")
 	nodeShowCmd.Flags().BoolVar(&CommandFlags.ComputeNode, "compute", false, "List all compute nodes")
 	nodeShowCmd.Flags().BoolVar(&CommandFlags.NetworkNode, "network", false, "List all network nodes")
+
+	quotasShowCmd.Flags().StringVar(&CommandFlags.Tenant, "tenant", "", "Tenant to show quotas for")
 }

@@ -55,7 +55,14 @@ func Show(c *client.Client, objName string, data CommandOpts) (bytes.Buffer, err
 			}
 		}
 	case "node":
+		/* List Nodes must handle different node data types, so it will call
+		 * PrettyPrint() inside to handle them better */
 		result, err = ListNodes(c, data)
+	case "quota":
+		quotas, err := ListQuotas(c, data)
+		if err == nil {
+			c.PrettyPrint(&result, "list-quota", quotas)
+		}
 	case "workload":
 		if len(data.Args) == 0 {
 			workloads, err := GetWorkloadList(c, data)
@@ -70,6 +77,7 @@ func Show(c *client.Client, objName string, data CommandOpts) (bytes.Buffer, err
 			}
 		}
 	}
+
 	if err != nil {
 		return result, errors.Wrapf(err, "Error running %s\n", objName)
 	}
