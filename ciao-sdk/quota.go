@@ -6,7 +6,7 @@ import (
 	"github.com/pkg/errors"
 )
 
-func ListQuotas(c *client.Client, flags CommandOpts) ([]types.QuotaDetails, error) {
+func GetQuotas(c *client.Client, flags CommandOpts) ([]types.QuotaDetails, error) {
 	if flags.Tenant != "" {
 		if !c.IsPrivileged() {
 			return nil, errors.New("Listing quotas for other tenants is for privileged users only")

@@ -9,7 +9,7 @@ import (
 	"github.com/pkg/errors"
 )
 
-func ListTenants(c *client.Client, flags CommandOpts) (bytes.Buffer, error) {
+func GetTenants(c *client.Client, flags CommandOpts) (bytes.Buffer, error) {
 	var t *template.Template
 	var result bytes.Buffer
 

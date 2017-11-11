@@ -7,7 +7,7 @@ import (
 	"github.com/pkg/errors"
 )
 
-func ShowInstance(c *client.Client, flags CommandOpts) (api.Server, error) {
+func GetInstance(c *client.Client, flags CommandOpts) (api.Server, error) {
 	if len(flags.Args) == 0 {
 		errors.New("Missing required -cn parameter")
 	}
@@ -19,15 +19,9 @@ func ShowInstance(c *client.Client, flags CommandOpts) (api.Server, error) {
 	}
 
 	return server, nil
-	/*	if c.Template != "" {
-			return tfortools.OutputToTemplate(os.Stdout, "instance-show", c.Template,
-				&server.Server, nil)
-		}
-
-		return tfortools.OutputToTemplate(os.Stdout, "instance-show", "{{table .}}", &server.Server, nil)*/
 }
 
-func ListNodeInstances(c *client.Client, flags CommandOpts) ([]types.CiaoServerStats, error) {
+func GetNodeInstances(c *client.Client, flags CommandOpts) ([]types.CiaoServerStats, error) {
 	if flags.Tenant == "" {
 		flags.Tenant = c.TenantID
 	}
@@ -44,7 +38,7 @@ func ListNodeInstances(c *client.Client, flags CommandOpts) ([]types.CiaoServerS
 	return server.Servers, nil
 }
 
-func ListInstances(c *client.Client, flags CommandOpts) ([]api.ServerDetails, error) {
+func GetInstances(c *client.Client, flags CommandOpts) ([]api.ServerDetails, error) {
 	if flags.Tenant == "" {
 		flags.Tenant = c.TenantID
 	}

@@ -6,7 +6,7 @@ import (
 	"github.com/pkg/errors"
 )
 
-func ListTrace(c *client.Client, flags CommandOpts) (types.CiaoTracesSummary, error) {
+func GetTraces(c *client.Client, flags CommandOpts) (types.CiaoTracesSummary, error) {
 	traces, err := c.ListTraceLabels()
 	if err != nil {
 		return traces, errors.Wrap(err, "Error listing trace labels")
@@ -15,7 +15,7 @@ func ListTrace(c *client.Client, flags CommandOpts) (types.CiaoTracesSummary, er
 	return traces, err
 }
 
-func ShowTrace(c *client.Client, flags CommandOpts) (types.CiaoTraceData, error) {
+func GetTraceData(c *client.Client, flags CommandOpts) (types.CiaoTraceData, error) {
 	var traceData types.CiaoTraceData
 
 	if flags.Args[0] == "" {

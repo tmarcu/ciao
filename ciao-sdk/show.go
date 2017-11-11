@@ -3,7 +3,6 @@ package sdk
 import (
 	"bytes"
 
-	"github.com/ciao-project/ciao/ciao-controller/types"
 	"github.com/ciao-project/ciao/client"
 
 	"github.com/pkg/errors"
@@ -31,12 +30,12 @@ func Show(c *client.Client, objName string, data CommandOpts) (bytes.Buffer, err
 		}
 	case "instance":
 		if len(data.Args) == 0 {
-			instances, err := ListInstances(c, data)
+			instances, err := GetInstances(c, data)
 			if err == nil {
 				c.PrettyPrint(&result, "list-instance", instances)
 			}
 		} else {
-			instance, err := ShowInstance(c, data)
+			instance, err := GetInstance(c, data)
 			if err == nil {
 				c.PrettyPrint(&result, "list-instance", instance)
 			}
@@ -49,32 +48,43 @@ func Show(c *client.Client, objName string, data CommandOpts) (bytes.Buffer, err
 			}
 		} else {
 			image, err := GetImage(c, data)
-			images := []types.Image{image}
 			if err == nil {
-				c.PrettyPrint(&result, "list-image", images)
+				c.PrettyPrint(&result, "list-image", image)
 			}
 		}
 	case "node":
 		/* List Nodes must handle different node data types, so it will call
 		 * PrettyPrint() inside to handle them better */
-		result, err = ListNodes(c, data)
+		result, err = GetNodes(c, data)
 	case "quota":
-		quotas, err := ListQuotas(c, data)
+		quotas, err := GetQuotas(c, data)
 		if err == nil {
 			c.PrettyPrint(&result, "list-quota", quotas)
 		}
 	case "tenant":
-		result, err = ListTenants(c, data)
+		result, err = GetTenants(c, data)
 	case "trace":
 		if len(data.Args) == 0 {
-			traces, err := ListTrace(c, data)
+			traces, err := GetTraces(c, data)
 			if err == nil {
 				c.PrettyPrint(&result, "list-instance", traces)
 			}
 		} else {
-			trace, err := ShowTrace(c, data)
+			trace, err := GetTraceData(c, data)
 			if err == nil {
 				c.PrettyPrint(&result, "list-instance", trace)
+			}
+		}
+	case "volume":
+		if len(data.Args) == 0 {
+			volumes, err := GetVolumes(c, data)
+			if err == nil {
+				c.PrettyPrint(&result, "list-workload", volumes)
+			}
+		} else {
+			vol, err := GetVolume(c, data)
+			if err == nil {
+				c.PrettyPrint(&result, "list-workload", vol)
 			}
 		}
 	case "workload":
@@ -86,8 +96,7 @@ func Show(c *client.Client, objName string, data CommandOpts) (bytes.Buffer, err
 		} else {
 			workload, err := GetWorkload(c, data)
 			if err == nil {
-				wl := []Workload{workload}
-				c.PrettyPrint(&result, "list-workload", wl)
+				c.PrettyPrint(&result, "list-workload", workload)
 			}
 		}
 	}

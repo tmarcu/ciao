@@ -51,7 +51,7 @@ func listCNCINodes(c *client.Client, flags CommandOpts) (types.CiaoCNCIs, error)
 	return cncis, err
 }
 
-func ListNodes(c *client.Client, flags CommandOpts) (bytes.Buffer, error) {
+func GetNodes(c *client.Client, flags CommandOpts) (bytes.Buffer, error) {
 	var result bytes.Buffer
 
 	if flags.ComputeNode {
