@@ -63,6 +63,8 @@ func Show(c *client.Client, objName string, data CommandOpts) (bytes.Buffer, err
 		if err == nil {
 			c.PrettyPrint(&result, "list-quota", quotas)
 		}
+	case "tenant":
+		result, err = ListTenants(c, data)
 	case "workload":
 		if len(data.Args) == 0 {
 			workloads, err := GetWorkloadList(c, data)

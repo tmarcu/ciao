@@ -42,6 +42,11 @@ type workloadOptions struct {
 	Disks           []disk           `yaml:"disks,omitempty"`
 }
 
+type Project struct {
+	ID   string `mapstructure:"id"`
+	Name string `mapstructure:"name"`
+}
+
 type CommandOpts struct {
 	Args        []string
 	TenantID    string
@@ -51,6 +56,9 @@ type CommandOpts struct {
 	ComputeNode bool
 	NetworkNode bool
 	Detail      bool
+	Quotas		bool
+	Resources	bool
+	Config		bool
 	Limit       int
 	Marker      string
 	Offset      int
