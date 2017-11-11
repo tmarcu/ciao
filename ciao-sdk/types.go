@@ -56,9 +56,9 @@ type CommandOpts struct {
 	ComputeNode bool
 	NetworkNode bool
 	Detail      bool
-	Quotas		bool
-	Resources	bool
-	Config		bool
+	Quotas      bool
+	Resources   bool
+	Config      bool
 	Limit       int
 	Marker      string
 	Offset      int

@@ -65,7 +65,7 @@ func listUserTenants(c *client.Client, t *template.Template) (bytes.Buffer, erro
 		projects = append(projects, Project{ID: t})
 	}
 
-	if t != nil { 
+	if t != nil {
 		if err := t.Execute(&result, &projects); err != nil {
 			return result, errors.Wrap(err, "Error listing user tenants")
 		}
@@ -87,7 +87,7 @@ func listTenantQuotas(c *client.Client, t *template.Template) (bytes.Buffer, err
 		return result, errors.Wrap(err, "Error listing tenant quotas")
 	}
 
-	if t != nil { 
+	if t != nil {
 		if err := t.Execute(&result, &resources); err != nil {
 			return result, errors.Wrap(err, "Error listing user tenants")
 		}
@@ -109,7 +109,7 @@ func listTenantResources(c *client.Client, t *template.Template) (bytes.Buffer, 
 		return result, errors.Wrap(err, "Error listing tenant resources")
 	}
 
-	if t != nil { 
+	if t != nil {
 		if err := t.Execute(&result, &usage); err != nil {
 			return result, errors.Wrap(err, "Error listing user tenants")
 		}

@@ -65,6 +65,18 @@ func Show(c *client.Client, objName string, data CommandOpts) (bytes.Buffer, err
 		}
 	case "tenant":
 		result, err = ListTenants(c, data)
+	case "trace":
+		if len(data.Args) == 0 {
+			traces, err := ListTrace(c, data)
+			if err == nil {
+				c.PrettyPrint(&result, "list-instance", traces)
+			}
+		} else {
+			trace, err := ShowTrace(c, data)
+			if err == nil {
+				c.PrettyPrint(&result, "list-instance", trace)
+			}
+		}
 	case "workload":
 		if len(data.Args) == 0 {
 			workloads, err := GetWorkloadList(c, data)

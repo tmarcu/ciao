@@ -134,7 +134,7 @@ var tenantShowCmd = &cobra.Command{
 
 var traceShowCmd = &cobra.Command{
 	Use:  "trace [LABEL]",
-	Long: `When called with no args, it will print all traces.`,
+	Long: `When called with no args, it will print all trace labels.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		object := strings.Fields(cmd.Use)[0]
 		CommandFlags.Args = args
