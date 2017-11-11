@@ -3,6 +3,7 @@ package sdk
 import (
 	"bytes"
 
+	"github.com/ciao-project/ciao/ciao-controller/types"
 	"github.com/ciao-project/ciao/client"
 
 	"github.com/pkg/errors"
@@ -48,8 +49,9 @@ func Show(c *client.Client, objName string, data CommandOpts) (bytes.Buffer, err
 			}
 		} else {
 			image, err := GetImage(c, data)
+			images := []types.Image{image}
 			if err == nil {
-				c.PrettyPrint(&result, "list-image", image)
+				c.PrettyPrint(&result, "list-image", images)
 			}
 		}
 	case "node":
@@ -67,24 +69,25 @@ func Show(c *client.Client, objName string, data CommandOpts) (bytes.Buffer, err
 		if len(data.Args) == 0 {
 			traces, err := GetTraces(c, data)
 			if err == nil {
-				c.PrettyPrint(&result, "list-instance", traces)
+				c.PrettyPrint(&result, "list-trace", traces)
 			}
 		} else {
 			trace, err := GetTraceData(c, data)
 			if err == nil {
-				c.PrettyPrint(&result, "list-instance", trace)
+				c.PrettyPrint(&result, "list-trace", trace)
 			}
 		}
 	case "volume":
 		if len(data.Args) == 0 {
 			volumes, err := GetVolumes(c, data)
 			if err == nil {
-				c.PrettyPrint(&result, "list-workload", volumes)
+				c.PrettyPrint(&result, "list-volume", volumes)
 			}
 		} else {
 			vol, err := GetVolume(c, data)
+			vols := []types.Volume{vol}
 			if err == nil {
-				c.PrettyPrint(&result, "list-workload", vol)
+				c.PrettyPrint(&result, "list-volume", vols)
 			}
 		}
 	case "workload":
@@ -95,8 +98,9 @@ func Show(c *client.Client, objName string, data CommandOpts) (bytes.Buffer, err
 			}
 		} else {
 			workload, err := GetWorkload(c, data)
+			wl := []Workload{workload}
 			if err == nil {
-				c.PrettyPrint(&result, "list-workload", workload)
+				c.PrettyPrint(&result, "list-workload", wl)
 			}
 		}
 	}
